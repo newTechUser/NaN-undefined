@@ -9,31 +9,23 @@
 </head>
 <body>
     <script>
-        count = 1;
-        const product =  [];
+    count = 1;
+    const product = [];
 
-        axios
-        .get("https://northwind.vercel.app/api/orders")
-        .then((response) => {
-            response.data.filter(element => element.shipAddress.country == "Sweden")
-            .forEach(element => {
-                // console.log("qiymet : " + element.details[0].unitPrice + '\n');
-                // console.log("mehsulsayi : " + element.details[0].quantity + '\n');    
-                // console.log("endirim : " + element.details[0].discount + '\n');
-                // console.log("say : " + count + '\n');
-                product.push({price:Number(element.details[0].unitPrice)},{discount:Number(element.details[0].discount)},{quantity:Number(element.details[0].quantity)});
-                // console.log("yekun qiymet : " + parseInt(element.details[0].unitPrice)*1-Number(element.details[0].discount) + '\n');
-                count++;
-            });
-        });
+    axios
+      .get("https://northwind.vercel.app/api/orders")
+      .then((response) => {
+        response.data.filter(element => element.shipAddress.country == "Sweden")
+          .forEach(element => {
+            console.log("qiymet : " + element.details[0].unitPrice + '\n');
+            console.log("mehsulsayi : " + element.details[0].quantity + '\n');    
+            console.log("endirim : " + element.details[0].discount + '\n');
+            console.log("say : " + count + '\n');
+            console.log("yekun qiymet : " + (parseInt(element.details[0].unitPrice)*1-Number(element.details[0].discount)) + '\n');
+            
+          });
+      });
 
-        var sum = 0;
-        console.log(product);
-        for(var i=1;i<product.length;i++){
-            sum += (product[i].price*(1-product[i].discount))/product[i].quantity;
-            var result = sum / count; 
-        }
-        console.log(result);
-    </script>
+  </script>
 </body>
 </html>
